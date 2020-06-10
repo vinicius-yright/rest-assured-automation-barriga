@@ -1,0 +1,30 @@
+OK get /contas (401)
+OK post /signin - necessario email/senha (200)
+OK post /contas - nome
+OK put /contas/:id
+ OK post /contas - nome(igual anterior) - (400)
+
+OK post /transacoes - strings = conta_id, descricao, envolvido, 
+tipo (desp / rec), data_transacao e data_pagamento (dd/MM/YYYY), valor(0.00f)
+status(true/false) 
+
+OK post /transacoes - sem enviar os parametros
+OK post /transacoes - data_transacao tem que ser do futuro
+
+OK delete /contas/:id  (com conta com movimentacao)
+
+OK get /saldo
+delete /transacoes/:id
+
+
+
+<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
