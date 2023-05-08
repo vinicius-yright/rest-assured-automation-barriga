@@ -64,6 +64,7 @@ public class ApiBarrigaSteps extends BaseTest{
 	public void iCanGetAccountInfoThroughId() {
 		given().header("Authorization", "JWT " + token).when().get("/contas/" + contaId).then()
 				.statusCode(200).body("nome", is(contaNameRandom));
+		System.out.println(contaNameRandom);
 	}
 
 	@Given("^that i want to edit a new account$")
@@ -73,7 +74,7 @@ public class ApiBarrigaSteps extends BaseTest{
 
 	@When("^i post the request to update the account's name$")
 	public void iPostTheRequestToEditTheAccountSName() {
-		contaId = given().header("Authorization", "JWT " + token).body("{ \"nome\": \""+contaNameRandom+" updated\" }").pathParam("id", "1734061")
+		contaId = given().header("Authorization", "JWT " + token).body("{ \"nome\": \""+contaNameRandom+" updated\" }").pathParam("id", "1734062")
 				.when().put("/contas/{id}").then()
 				.statusCode(200).body("nome", is(contaNameRandom + " updated")).extract().path("id");
 	}
@@ -89,9 +90,17 @@ public class ApiBarrigaSteps extends BaseTest{
 		setup();
 	}
 
+	@And("^i post the request to insert balance into the account$")
+	public void iPostTheRequestToInsertBalanceIntoTheAccount() {
+		Movimentacao mv = new Movimentacao(contaId, "Deposit", "Vinicius Souza", "REC", Data.getData(-1), Data.getData(6), 78.29f, true);
+
+		idTransacao = given().header("Authorization", "JWT " + token).body(mv).when().post("/transacoes")
+				.then().statusCode(201).extract().path("id");
+	}
+
 	@When("^i post the request to insert banking movement$")
 	public void iPostTheRequestToInsertBankingMovement() {
-		Movimentacao mv = new Movimentacao(1734061, "Deposit", "Vinicius Souza", "REC", Data.getData(-1), Data.getData(6), 300f, true);
+		Movimentacao mv = new Movimentacao(1734062, "Deposit", "Vinicius Souza", "REC", Data.getData(-1), Data.getData(6), 300f, true);
 
 		idTransacao = given().header("Authorization", "JWT " + token).body(mv).when().post("/transacoes")
 				.then().statusCode(201).extract().path("id");
@@ -101,7 +110,7 @@ public class ApiBarrigaSteps extends BaseTest{
 	public void iCanVerifyThatTheTransactionSBeenSuccessfullyInsertedThroughItsId() {
 		given().header("Authorization", "JWT " + token).when().get("/transacoes")
 				.then().statusCode(200).assertThat()
-				.body("conta_id", Matchers.hasItem(1734061))
+				.body("conta_id", Matchers.hasItem(1734062))
 				.body("descricao", Matchers.hasItem("Deposit"))
 				.body("envolvido", Matchers.hasItem("Vinicius Souza"))
 				.body("valor", Matchers.hasItem("300.00"));
@@ -114,54 +123,52 @@ public class ApiBarrigaSteps extends BaseTest{
 
 		given().header("Authorization", "JWT " + token).when().get("/transacoes")
 				.then().statusCode(200).assertThat()
-				.body("conta_id", Matchers.not(hasItem(1734061)));
+				.body("conta_id", Matchers.not(hasItem(1734062)));
 	}
 
 	@Then("^i can check if the delete operation has been successful$")
 	public void iCanCheckIfTheDeleteOperationHasBeenSuccessful() {
 	}
 
-	@Test
-	public void t01_acessarSemConta() {
+	@When("^i post the request to create the new account without the authentication token$")
+	public void iPostTheRequestToCreateTheNewAccountWithoutTheAuthenticationToken() {
 		given().when().get("/contas").then().statusCode(401);
 	}
 
-	@Test
-	public void t04_criarContaBancariaRepetida() {
-		given().header("Authorization", "JWT " + token).body("{ \"nome\": \""+contaNameRandom+" qualquer_2\" }").when().post("/contas")
-				.then().statusCode(400).body("error", is("J� existe uma conta com esse nome!"));
+	@When("^i post the request to create the new account with an already registered name$")
+	public void iPostTheRequestToCreateTheNewAccountWithAnAlreadyRegisteredName() {
+		given().header("Authorization", "JWT " + token).body("{ \"nome\": \"nome\"}").when().post("/contas")
+				.then().statusCode(400).body("error", is("Já existe uma conta com esse nome!"));
 	}
 
-	@Test
-	public void t06_validarCamposObrigatoriosMovimentacaoNaConta() {
+	@When("^i post the request to insert the banking movement without the correct fields$")
+	public void iPostTheRequestToInsertTheBankingMovementWithoutTheCorrectFields() {
 		given().header("Authorization", "JWT " + token).body("{}").when().post("/transacoes")
-		.then().statusCode(400).body("$", hasSize(8));
+				.then().statusCode(400).body("$", hasSize(8));
 	}
-	
-	@Test
-	public void t07_validarDataTransacaoMovimentacaoNaConta() {
-		Movimentacao mv = new Movimentacao(contaId, "Bank transfer", "Vinicius Souza", "REC", Data.getData(2), Data.getData(-1), 200f, true);
+
+	@When("^i post the request to insert the banking movement with innapropriate end date$")
+	public void iPostTheRequestToInsertTheBankingMovementWithInnapropriateEndDate() {
+		Movimentacao mv = new Movimentacao(1734061, "Bank transfer", "Vinicius Souza", "REC", Data.getData(2), Data.getData(-1), 200f, true);
 		given().header("Authorization", "JWT " + token).body(mv).when().post("/transacoes")
-		.then().statusCode(400).body("msg", hasItem("Data da Movimenta��o deve ser menor ou igual � data atual"));
+				.then().statusCode(400).body("msg", hasItem("Data da Movimentação deve ser menor ou igual à data atual"));
 	}
-	
-	@Test
-	public void t08_validarRemocaoContaComTransacao() {
-		given().header("Authorization", "JWT " + token).pathParam("id", contaId).when().delete("/contas/{id}")
-		.then().statusCode(500).body("constraint", is("transacoes_conta_id_foreign"));
+
+	@When("^i post the request to try to delete an account that has banking records$")
+	public void iPostTheRequestToTryToDeleteAnAccountThatHasBankingRecords() {
+		given().header("Authorization", "JWT " + token).pathParam("id", 178042).when().delete("/contas/{id}")
+				.then().statusCode(500).body("constraint", is("transacoes_conta_id_foreign"));
 	}
-	
-	@Test
-	public void t09_getSaldoContas() {
+
+	@Then("^i can check if the balance has been updated$")
+	public void iCanCheckIfTheBalanceHasBeenUpdated() {
 		given().header("Authorization", "JWT " + token).when().get("/saldo")
-		.then().statusCode(200).body("find{it.conta_id == "+contaId+"}.saldo", greaterThan("0"));
-	}
-	
-	@Test
-	public void t10_removerMovimentacaoContas() {
-
+				.then().statusCode(200).body("find{it.conta_id == "+contaId+"}.saldo", greaterThan("78"));
 	}
 
+	@Then("^i receive an error message and am unable to complete the operation$")
+	public void iReceiveAnErrorMessageAndAmUnableToCompleteTheOperation() {
+	}
 
 
 }
