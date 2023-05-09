@@ -9,13 +9,13 @@ Follow the below steps:
 
 ## Clone the repository
 Open your machine's native terminal, navigate to the cloned project root folder and run the following command to install the required dependencies:
-
+```
  mvn install -DskipTests
- 
+```
 After that, you can execute all the tests by running the "RunTests.java" class or by executing the following command:
-
+```
 mvn clean test
-
+```
 Be sure to have the following dependences already installed on your machine:
 
 Java >= 8
@@ -38,13 +38,15 @@ This repository contains the following tests:
 
 ## Generate test report
 After executing all tests, you can generate a report by running the following command (You must have allure installed on your machine):
-
+```
 mvn allure:report
+```
 View the report:
-
+```
 mvn allure:serve
-
+```
 ## Project Structure
+```
 .
 └── src
     ├── main
@@ -64,7 +66,7 @@ mvn allure:serve
         |   └── RunTests.java
         └── resources
             └── allure.properties
-
+```
 Stack
 RestAssured - Testing Framework
 MAVEN - Software project management and comprehension tool
