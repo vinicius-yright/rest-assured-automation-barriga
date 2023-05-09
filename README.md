@@ -1,13 +1,13 @@
-#rest-assured-automation-barriga
+# rest-assured-automation-barriga
 
-##Description
+## Description
 This project was developed with the support of the "Testing API Rest with Rest-Assured" course, from the website Udemy, made by professor Francisco Wagner. This project contains 8 functional test scenarios, from which 3 are positive and 4 are negative, contemplating all of the features provided by the api being tested
 
-##Repository Setup
+## Repository Setup
 In order to execute the tests stored on this repository, you'll need to execute the project on your machine.
 Follow the below steps:
 
-Clone the repository
+## Clone the repository
 Open your machine's native terminal, navigate to the cloned project root folder and run the following command to install the required dependencies:
 
  mvn install -DskipTests
@@ -22,7 +22,7 @@ Java >= 8
 Maven >= 3.1+
 Allure-Report (optional report generation)
 
-##About the tests implemented on this repository
+## About the tests implemented on this repository
 This repository contains the following tests:
 
 Feature	Scenario	Description
@@ -35,7 +35,7 @@ NegativeScenarios	Trying to insert a banking movement without the appropriate pa
 NegativeScenarios	Trying to insert a banking movement with incorrect end date	Cria uma nova simulacao utilizando os seguinte dados randomizados: cpf(válido), nome, email.
 NegativeScenarios	Trying to delete an account with banking transactions	Tenta criar uma nova simulacao utilizando um CPF já existente.
 
-#Generate test report
+## Generate test report
 After executing all tests, you can generate a report by running the following command (You must have allure installed on your machine):
 
 mvn allure:report
@@ -43,7 +43,7 @@ View the report:
 
 mvn allure:serve
 
-#Project Structure
+## Project Structure
 .
 └── src
     ├── main
