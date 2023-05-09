@@ -4,14 +4,14 @@ package configs;
 public class Movimentacao {
 	
 	
-	private Integer conta_id;
-	private String descricao;
-	private String envolvido;
-	private String tipo;
-	private String data_transacao;
-	private String data_pagamento;
-	private Float valor;
-	private Boolean status;
+	public Integer conta_id;
+	public String descricao;
+	public String envolvido;
+	public String tipo;
+	public String data_transacao;
+	public String data_pagamento;
+	public Float valor;
+	public Boolean status;
 
 	public Movimentacao(Integer conta_id, String descricao, String envolvido, String tipo, String data_transacao,
 			String data_pagamento, Float valor, Boolean status) {

@@ -1,4 +1,4 @@
-package tests;
+package steps;
 
 import static io.restassured.RestAssured.given;
 
@@ -9,18 +9,12 @@ import static org.hamcrest.Matchers.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.restassured.response.ResponseBody;
-import io.restassured.response.ValidatableResponse;
-import org.hamcrest.Matcher;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import configs.BaseTest;
