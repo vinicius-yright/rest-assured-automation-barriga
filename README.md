@@ -25,15 +25,25 @@ Allure-Report (optional report generation)
 ## About the tests implemented on this repository
 This repository contains the following tests:
 
-Feature	Scenario	Description
-PositiveScenarios	Create an account and insert balance into it	Verifica se o CPF informado possui alguma restricao.
-PositiveScenarios	Edit a previously created account's name	Realiza a consulta de um CPF inexistente na lista de restricoes.
-PositiveScenarios	Insert and remove banking movement from account	Realiza a consulta de uma simulacao.
-NegativeScenarios	Trying to create an account without authenticating	Consulta um CPF inexistente.
-NegativeScenarios	Trying to create a duplicate account	Recebe uma lista de simulacoes e verifica a existencia de um nome especifico.
-NegativeScenarios	Trying to insert a banking movement without the appropriate payload	Verifica se existe alguma simulacao cadastrada.
-NegativeScenarios	Trying to insert a banking movement with incorrect end date	Cria uma nova simulacao utilizando os seguinte dados randomizados: cpf(válido), nome, email.
-NegativeScenarios	Trying to delete an account with banking transactions	Tenta criar uma nova simulacao utilizando um CPF já existente.
++-------------------+---------------------------------------------------------------------+
+| Feature           | Scenario Name                                                       |
++-------------------+---------------------------------------------------------------------+
+| PositiveScenarios | Create an account and insert balance into it                        |
++-------------------+---------------------------------------------------------------------+
+| PositiveScenarios | Edit a previously created account's name                            |
++-------------------+---------------------------------------------------------------------+
+| PositiveScenarios | Insert and remove banking movement from account                     |
++-------------------+---------------------------------------------------------------------+
+| NegativeScenarios | Trying to create an account without authenticating                  |
++-------------------+---------------------------------------------------------------------+
+| NegativeScenarios | Trying to create a duplicate account                                |
++-------------------+---------------------------------------------------------------------+
+| NegativeScenarios | Trying to insert a banking movement without the appropriate payload |
++-------------------+---------------------------------------------------------------------+
+| NegativeScenarios | Trying to insert a banking movement with incorrect end date         |
++-------------------+---------------------------------------------------------------------+
+| NegativeScenarios | Trying to delete an account with banking transactions               |
++-------------------+---------------------------------------------------------------------+
 
 ## Generate test report
 After executing all tests, you can generate a report by running the following command (You must have allure installed on your machine):
