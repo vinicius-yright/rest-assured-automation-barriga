@@ -1,6 +1,5 @@
 package configs;
 
-import cucumber.api.java.Before;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 
