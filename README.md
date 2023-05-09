@@ -67,16 +67,11 @@ mvn allure:serve
         └── resources
             └── allure.properties
 ```
-Stack
-RestAssured - Testing Framework
-MAVEN - Software project management and comprehension tool
-JAVA - Programming Language
-Cucumber - Testing tool for Behaviour Driver Development
+## Stack
+* RestAssured - Testing Framework
+* MAVEN - Software project management and comprehension tool
+* JAVA - Programming Language
+* Cucumber - Testing tool for Behaviour Driver Development
 
-Author
-Vinicius Souza
-
-GitHub
-Linkedin
-
-Roadmap
+## Author
+***Vinicius Souza***
