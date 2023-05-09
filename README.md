@@ -18,9 +18,9 @@ mvn clean test
 ```
 Be sure to have the following dependences already installed on your machine:
 
-Java >= 8
-Maven >= 3.1+
-Allure-Report (optional report generation)
+-Java >= 8
+-Maven >= 3.1+
+-Allure-Report (optional report generation)
 
 ## About the tests implemented on this repository
 This repository contains the following tests:
